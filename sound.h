@@ -1,5 +1,6 @@
 //  Constants definition
 #define RATE 16000 // samples per second
+#define CMD "arecord -r16000 -c1 -f S16_LE -d1 -q test.wav"
 // data structures
 struct WAVHDR{
 	char ChunkID[4]; // it is "RIFF"
@@ -12,11 +13,13 @@ struct WAVHDR{
 	short NumChanels; // Should be 1
 	int SampleRate; //16000
 	int ByteRate; //16000*NumChannels*BitsPerSample/8
-	short BlockAllign; //NumChannels*BitsPerSample
+	short BlockAlign; //NumChannels*BitsPerSample
 	short BitsSample; // in our app, 16 (-f S16_LE)
 
 	char Subchunk2ID[4]; //"data"
-	int Subchunk2size; //
+	int Subchunk2Size; //
 
 };
 // function declarations
+void displayWAVHDR(struct WAVHDR h);
+void displayWAVDATA(short []);
