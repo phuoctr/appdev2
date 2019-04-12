@@ -5,8 +5,20 @@
 #include<signal.h>
 #include<time.h>
 #include "sound.h"
-int main()
+#include "comm.h"
+
+int main(int argc, char **argv)
 {
+	if(argc == 2){
+		int ch;
+		printf("How many channels (1:mono, 2:stereo)");
+		scanf("%d", &ch);
+		float duration;
+		printf("How long is the test tone?(1-10s):");
+		scanf("%f", &duration);
+		testTone(ch, atoi(argv[1]), duration);
+		return 0;
+	}
 	FILE *f;
 	short sd[RATE]; // For all samples in 1s
 	while(1){
@@ -25,6 +37,7 @@ int main()
 		fread(&sd, sizeof(sd), 1, f);
 		displayWAVDATA(sd);
 		fclose(f); //close the opened file
+		sendDATA(sd);
 	}
 	resetColors();
 	getchar();
