@@ -1,4 +1,3 @@
-# this is the first version
 This is project is to run a Raspberry PI as an audio device. The 
 device is able to do 2 functions: as a sound collector and as a 
 test-tone generator.
@@ -7,11 +6,12 @@ Table of Content:
 	1. Configuaration Instruction
 	2. Installation Instrucstions
 	3. Operating Instructions
-	4. Copyright/ Copyleft
-	5. Contact Information
+	4. File list
+	5. Copyright/ Copyleft
+	6. Contact Information
 	7. Credits and Acknowledgements
 
-1.  Configuaration Instruction
+1. Configuaration Instruction
 
 The application is running on a Raspberry PI 3 model B. This PI
 should come with a USB sound card, a network connection, a 
@@ -19,6 +19,85 @@ microphone.
 
 1.1 Configure  USB sound  card as default audio device.
 
-...
+	1.1.1. Boot up RPi, and apply the USB sound card.
+	1.1.2. Use “lsusb” command to check if your USB sound card is mounted.
+	1.1.3. Use “sudo nano /etc/asound.conf”command and put following content
+	       to the file:
+		"pcm.!default {
+		  type plug
+		  slave {
+		    pcm "hw:1,0"
+		  }
+		}
+		ctl.!default {
+			type hw
+			card 1
+		} "
+	1.1.4. At your home directory, Use “nano .asoundrc” command and put 
+	       the same content to the file.
+	1.1.5.Run alsamixer, If evertyhing is successful installed, you should be
+	      able to see that USB sound card is the default audio device. 
 
-1.2 Install Libcurl library 
+1.2 Install libcurl library 
+	
+	1.2.1. Check if your libcurl library is installed or not.
+	1.2.2. If libcurl library is not yet installed in your PI
+	       Run “sudo apt-get update” to update the application list.
+	1.2.3. Run “sudo apt-get install libcurl3” to install the libcurl3.
+	1.2.4. Run “sudo apt-get install libcurl4-openssl-dev” to install the development
+	       API of libcurl4.
+
+2. Installation Instrucstions
+
+	2.1 In your installation directory, use command "make" to create 
+	    executable file.
+	2.2. If the program is sucessful installed, you should be able to see "sound.out" file.
+
+3. Operating Instructions
+	
+3.1 Realtime sound collector function.
+	3.1.1. In your installation directory,run the program by using command "./sound.out".	 
+	3.1.2. The program runs as infinite loop that record the sound and show on the graph.
+	3.1.3. To terminate the program, press "Ctrl" + "C".
+
+3.2 Testtone generator function.
+	3.2.1. Using command "./sound.out 440" or "./sound.out 1000" to genenrate a testtone.
+	3.2.2. Choose the channel of the testtone.
+	3.2.3. Choose the duration of the testtone.
+	3.2.4. If testtone were succesfully generated, you should able to see "testTone.wav".
+	
+4. File list
+
+	The following files is cointaned in the program:
+	- README
+	- curltest.c
+        - comm.c
+        - comm.h
+	- main.c
+	- makefile
+	- sound.php
+	- sound.c
+	- sound.h
+	- screen.c
+	- screen.h
+	- sound.php	
+
+5. Copyright
+
+	Copyright © 2019 by Phuoc Trinh
+	All rights reserved. This program or any portion thereof
+	may not be reproduced or used in any manner whatsoever
+	without the express written permission of the owner.
+
+6. Contact Information
+	
+	email: trinhhuuphuoc@outlook.com	
+	phone number: +358 46 624 5208
+	github: www.github.com/phuoctr
+
+7. Credits and Acknowledgements
+
+	Phuoc Trinh, application developer.
+	Gao Chao, application development instructor.
+	
+	
